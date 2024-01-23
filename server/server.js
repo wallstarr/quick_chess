@@ -28,11 +28,6 @@ const port = 5001;
 app.use(cors());
 app.use(express.json());
 
-// Route to check if the server is functional and responding
-app.get('/', (req, res) => {
-  res.send("Welcome to the game!");
-});
-
 // List of game rooms stored in the server
 let rooms = {};
 
@@ -67,13 +62,13 @@ app.post('/createGame', (req, res) => {
   };
   const roomNumber = newUniqueRoomNumber();
 
-  let timeControl = parseInt(req.body.timeControl); // Time control in minutes
+  let timeControl = parseInt(req.body.minutesPerSide); // Time control in minutes
 
   if (!isNaN(timeControl)) {
     timeControl *= 60; // to seconds
   }
 
-  let timeIncrement = parseInt(req.body.timeIncrement); // time increment in seconds
+  let timeIncrement = parseInt(req.body.incrementInSeconds); // time increment in seconds
 
   // default time controlis 5 minutes + 0 seconds if not specified 
   if (isNaN(timeControl)) {
@@ -110,32 +105,14 @@ app.post('/createGame', (req, res) => {
   res.send({ roomNumber });
 });
 
-// Create a new game room
-app.get('/rooms', (req, res) => {
-  // return rooms
-  res.send(rooms)
-})
-
-// Retrieve list of games stored in the database
-app.get('/games', async (req, res) => {
-  const uuid = req.query.uuid;
-  if (uuid) {
-    try {
-      const game = await Game.findOne({ _id: uuid });
-      if (game) {
-        res.send(game);
-      } else {
-        res
-          .status(404)
-          .send({ message: "No game found with the specified UUID." });
-      }
-    } catch (error) {
-      console.log(error);
-      res.status(500).send({ message: "Error finding game by UUID." });
-    }
-  } else {
-    const games = await Game.find().sort({ date: -1 }).limit(100);
-    res.send(games);
+app.get('/gamehistory/:gameId', async (req, res) => {
+  try {
+    const gameId = req.params.gameId;
+    const game = await Game.findById(gameId);
+    res.json(game);
+  } catch (error) {
+    console.log(error)
+    res.status(500).send('Server error');
   }
 });
 
