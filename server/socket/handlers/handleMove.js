@@ -93,7 +93,7 @@ const handleCheckmate = (gameState, io, roomNumber, rooms) => {
 const handleGameOver = (io, roomNumber, rooms, gameState, gameSchema, gameModel) => {
     handleNonOfferedDraw(gameState, io, roomNumber, rooms);
     handleCheckmate(gameState, io, roomNumber, rooms);
-    pushToMongoAndManageDB(rooms[roomNumber], gameSchema, gameModel, io);
+    pushToMongoAndManageDB(rooms[roomNumber], gameModel, io);
     clearInterval(rooms[roomNumber].timer);
     delete rooms[roomNumber];
 };
@@ -159,7 +159,6 @@ const handleMove = (io, socket, rooms, gameSchema, gameModel) => (roomNumber, so
     rooms[roomNumber].timers[currentPlayer] += rooms[roomNumber].increment;
   
     if (gameState.gameOver) {
-
         handleGameOver(io, roomNumber, rooms, gameState, gameSchema, gameModel) 
     }
 };

@@ -55,5 +55,12 @@ module.exports = {
         INSUFFICIENT_MATERIAL: 'insufficient material',
         FIFTY_MOVE_RULE: 'fifty move rule',
         DRAW_ACCEPTED: 'draw accepted' 
+    },
+
+    /**
+     * Game Link
+     */
+    DATABASE : {
+        GAME_LINK: 'game link'
     }
 };

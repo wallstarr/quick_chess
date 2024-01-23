@@ -100,6 +100,7 @@ app.post('/createGame', (req, res) => {
     increment: timeIncrement,
     currentPlayer: null,
     drawOffer: null,
+    roomNumber: roomNumber,
   };
 
   res.send({ roomNumber });
@@ -116,7 +117,7 @@ app.get('/gamehistory/:gameId', async (req, res) => {
   }
 });
 
-// Start the serverx
+// Start the server
 server.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });

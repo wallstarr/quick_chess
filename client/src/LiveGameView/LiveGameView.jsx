@@ -4,7 +4,7 @@ import { color } from '../constants';
 import ChessboardPanel from './ChessboardPanel.jsx'
 import SidePanel from './SidePanel.jsx'
 import { io } from 'socket.io-client';
-import { EVENTS } from "../socket/aliases"
+import { DATABASE, EVENTS } from "../socket/aliases"
 import { useNavigate } from 'react-router-dom';
 import GameOverModal from './GameOverModal.jsx';
 
@@ -17,6 +17,7 @@ const LiveGameView = () => {
   const [usernameForWhite, setUserNameWhite] = useState("waiting..."); // TODO: make the ... a spinner
   const [usernameForBlack, setUserNameBlack] = useState("waiting...");
   const [orientation, setOrientation] = useState(color.WHITE);
+  const [gameReviewId, setGameReviewId] = useState("")
 
   // Chess logic related data
   const [chess] = useState(new Chess()); // create a new chess.js instance
@@ -193,6 +194,10 @@ const LiveGameView = () => {
       navigate("/home")
     });
 
+    socketRef.current.on(DATABASE.GAME_LINK, (gameId) => {
+      setGameReviewId(gameId)
+    })
+
     socketRef.current.on()
     setIsLoading(false);
   };
@@ -220,6 +225,10 @@ const LiveGameView = () => {
     }
   };
 
+  const navigateToGameReview = () => {
+    navigate(`/gamehistory/${gameReviewId}`)
+  }
+
   return (
     <div className="flex items-center justify-center h-screen bg-gray-900">
       <div className="flex flex-row bg-transparent items-center" ref={chessboardRef}>
@@ -243,8 +252,10 @@ const LiveGameView = () => {
       <GameOverModal
         isOpen={isGameOverModalOpen}
         onClose={() => setGameOverModalOpen(false)}
+        directToGameReview={navigateToGameReview}
         primaryMessage={gameOverMessage.primary}
         secondaryMessage={gameOverMessage.secondary}
+        gameReviewId={gameReviewId}
       />
     </div>
   );

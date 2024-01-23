@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Chessboard from 'chessboardjsx';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { LOCALHOST_SERVER } from '../constants'
@@ -25,9 +26,12 @@ const PreviousGameView = () => {
     }
 
     return (
-        <div className='bg-gray-900'>
+        <div className='flex flex-col items-center bg-gray-900'>
             <h1>Previous Game Vieww</h1>
             <pre>{JSON.stringify(gameData, null, 2)}</pre>
+            <Chessboard
+                width={400}
+            />
         </div>
     );
 };

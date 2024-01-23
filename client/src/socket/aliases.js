@@ -3,9 +3,6 @@
  * This module defines various aliases for Socket.IO events and draw states used throughout the ChessApp server.
  */
 
-// NOTE: THIS FILE IS TO BE KEPT CONSISTENT WITH server/socket/aliases.js
-// I know this is a terrible practice but I don't have a better solution for now
-
 module.exports = {
     /**
      * Socket.IO Events
@@ -58,5 +55,12 @@ module.exports = {
         INSUFFICIENT_MATERIAL: 'insufficient material',
         FIFTY_MOVE_RULE: 'fifty move rule',
         DRAW_ACCEPTED: 'draw accepted' 
+    },
+
+    /**
+     * Game Link
+     */
+    DATABASE : {
+        GAME_LINK: 'game link'
     }
 };

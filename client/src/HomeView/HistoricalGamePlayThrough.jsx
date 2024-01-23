@@ -17,7 +17,6 @@ const HistoricalGamePlayThrough = () => {
     useEffect(() => {
 
         if (isFirstGameShown.current) {
-            console.log("first game")
             isFirstGameShown.current = false;
         } else {
             setTimeout(() => setVisible(true), 1000); // Delay to allow the fade-out transition to complete

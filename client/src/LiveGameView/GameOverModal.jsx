@@ -1,4 +1,12 @@
-const GameOverModal = ({ isOpen, onClose, primaryMessage, secondaryMessage }) => {
+import React, { useEffect, useState } from 'react';
+
+const GameOverModal = ({ isOpen, onClose, directToGameReview, primaryMessage, secondaryMessage, gameReviewId }) => {
+    const [gameReviewVisible, setGameReviewVisible] = useState(false);
+
+    useEffect(() => {
+        setGameReviewVisible(!!gameReviewId);
+    }, [gameReviewId]);
+    
     if (!isOpen) return null;
 
     return (
@@ -9,9 +17,9 @@ const GameOverModal = ({ isOpen, onClose, primaryMessage, secondaryMessage }) =>
                 </button>
                 <div className="text-xl font-bold">{primaryMessage}</div>
                 <div className="text-lg">{secondaryMessage}</div>
-                <button onClick={onClose} className="mt-4 px-4 py-2 bg-sky-700 text-white rounded">
+                {gameReviewVisible && <button onClick={directToGameReview} className="mt-4 px-4 py-2 bg-sky-700 text-white rounded">
                     Game Review
-                </button>
+                </button>}
             </div>
         </div>
     );

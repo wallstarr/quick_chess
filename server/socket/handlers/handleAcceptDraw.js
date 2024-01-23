@@ -51,7 +51,7 @@ const handleAcceptDraw = (io, socket, rooms, gameModel, gameSchema) => (roomNumb
 
     // Set the game result to draw
     room.winner = "Draw by Agreement";
-    pushToMongoAndManageDB(rooms[roomNumber], gameSchema, gameModel);
+    pushToMongoAndManageDB(rooms[roomNumber], gameModel, io);
 
     delete rooms[roomNumber];
 };
