@@ -45,14 +45,17 @@ const PreviousGameView = () => {
     const stepForward = () => setCurrentMove(current => Math.min(current + 1, gameData?.history.length || 0));
     const flipBoard = () => setOrientation(ori => (ori === 'white' ? 'black' : 'white'));
 
-    // Determine player names based on orientation
-
     const getPlayerByUsername = (color) => {
         return color === 'White' ? gameData?.playerTwoData.username : gameData?.playerOneData.username;
     }
 
     const topPlayer = orientation === 'white' ? getPlayerByUsername('Black') : getPlayerByUsername('White');
     const bottomPlayer = orientation === 'white' ? getPlayerByUsername('White') : getPlayerByUsername('Black');
+
+    const formatDate = (dateString) => {
+        const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+        return new Date(dateString).toLocaleDateString('en-US', options);
+    };
 
     if (!gameData) {
         return <div>loading some stuff</div>;
@@ -61,6 +64,7 @@ const PreviousGameView = () => {
     return (
         <div className='flex flex-col items-center bg-gray-900 text-white p-4'>
             <h1 className='text-2xl font-bold mb-4'>Previous Game View</h1>
+            <div className='text-lg mb-2'>{formatDate(gameData.date)}</div>
             <pre className='mb-4'>{JSON.stringify(gameData, null, 2)}</pre>
 
             <div className='mb-2'>{topPlayer}</div>
