@@ -1,6 +1,6 @@
 # quick_chess
 
-> in progress -- this is a fork of the repository which I worked on with a group in a course on applied industry practices. I wrote/was involved with all of the backend, and this fork is my attempt on the front end, which is still not finished. a functioning website based on the original repo has been deployed to render (linked below), though that front end is not my implementation. 
+> In-progress: This repository is a clone of a repoistory I worked on for a class project in a group of 5, where I originally worked entirely on the backend stuff -- but I have since updated it -- primarily with my own version of a frontend.
 
 [Live Website](https://jamdk-chess-frontend.onrender.com/)
 ---
